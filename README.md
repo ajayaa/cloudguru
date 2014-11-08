@@ -9,3 +9,8 @@ Yet another OpenStack cloud deployment repository
 Add a Puppetfile, and run
 
     librarian-puppet install
+
+to get installed all the Puppet modules defined in Puppetfile. To update the
+modules later, run:
+
+    librarian-puppet update
