@@ -16,3 +16,11 @@ to get installed all the Puppet modules defined in Puppetfile. To update the
 modules later, run:
 
     librarian-puppet update
+## Puppet apply
+
+    sudo puppet apply site.pp --modulepath modules/
+
+## Verification
+Verify if the keystone got successfully installed:
+
+    keystone --os-auth-url http://node2.example.com:5000/v2.0 --os-username admin --os-password ChangeMe --os-tenant-name openstack catalog
