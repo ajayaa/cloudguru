@@ -19,4 +19,8 @@ apache::vhost { 'ssl':
   docroot => '/var/www/ssl',
   ssl => true,
 }
-
+apache::vhost { 'ssltwo':
+  port => '4433',
+  docroot => '/var/www/ssltwo',
+  ssl => true,
+}
