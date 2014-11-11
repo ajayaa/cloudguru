@@ -34,26 +34,20 @@ class { 'keystone':
   admin_token    => 'admin_token',
   mysql_module   => '2.2',
   enabled        => true,
-  enable_ssl     => true,
-  public_port    => 443,
-  admin_port     => 443,
 }
 class { 'keystone::roles::admin':
   email    => 'test@puppetlabs.com',
   password => 'ChangeMe',
 }
 class { 'keystone::endpoint':
-  public_url => "https://${::fqdn}:443/",
-  admin_url  => "https://${::fqdn}:443/",
+  public_url => "https://${::fqdn}:5000/",
+  admin_url  => "https://${::fqdn}:35357/",
 }
 
-include apache
+#keystone_config { 'ssl/enable': value => false }
 
-class { 'keystone::wsgi::apache':
-  ssl => true,
-  public_port => 443,
-  admin_port  => 443,
-  public_path => '/main/',
-  admin_path  => '/admin/',
-}
+#include apache
+#class { 'keystone::wsgi::apache':
+#  ssl => true
+#}
 
