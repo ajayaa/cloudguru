@@ -33,15 +33,22 @@ class { 'keystone':
   catalog_type   => 'sql',
   admin_token    => 'admin_token',
   mysql_module   => '2.2',
+# NOTE(rushiagr): setting enabled => false will result in an error due to
+# dependent declarations still getting evaluated even when keystone service is
+# not running. Might fix this up in future
   enabled        => true,
+#  enabled        => false,
+  enable_ssl     => true,
+  ssl_certfile   => "/home/vagrant/keystone-ssl/ssl-cert-snakeoil.pem",
+  ssl_keyfile    => "/home/vagrant/keystone-ssl/ssl-cert-snakeoil.key",
 }
 class { 'keystone::roles::admin':
   email    => 'test@puppetlabs.com',
   password => 'ChangeMe',
 }
 class { 'keystone::endpoint':
-  public_url => "https://${::fqdn}:5000/",
-  admin_url  => "https://${::fqdn}:35357/",
+  public_url => "https://${::fqdn}:5000",
+  admin_url  => "https://${::fqdn}:35357",
 }
 
 #keystone_config { 'ssl/enable': value => false }
