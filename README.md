@@ -6,7 +6,7 @@ Make sure the machine has an FQDN set
 
     sudo apt-get install -y git
     git clone https://github.com/ajayaa/cloudguru.git
-    sudo gem install librarian-puppet-simple
+    sudo gem install librarian-puppet-simple --no-ri --no-rdoc
 
 Add a Puppetfile, and run
 
