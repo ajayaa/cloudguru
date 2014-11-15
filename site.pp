@@ -33,28 +33,34 @@ class { 'keystone':
   catalog_type   => 'sql',
   admin_token    => 'admin_token',
   mysql_module   => '2.2',
-# NOTE(rushiagr): setting enabled => false will result in an error due to
-# dependent declarations still getting evaluated even when keystone service is
-# not running. Might fix this up in future
-  enabled        => true,
-#  enabled        => false,
+# NOTE(rushiagr): setting "enabled => false" will result in an error. This is
+# because, even if the service is disabled, the class keystone::roles::admin
+# is defined, which will then try to access keystone. We should fix this up in
+# future.
+
+# NOTE(rushiagr): Do not set this to true if apache is enabled, as in this
+# site.pp. If set to true, then keystone will try to run on both apache as well
+# as WSGI servers, and this will lead to "Port/address in use" errors.
+  enabled        => false,
   enable_ssl     => true,
+
+# TODO(rushiagr): These files for now need to be added manually. In future, we
+# should make creation of these files automatic
   ssl_certfile   => "/home/vagrant/keystone-ssl/ssl-cert-snakeoil.pem",
   ssl_keyfile    => "/home/vagrant/keystone-ssl/ssl-cert-snakeoil.key",
 }
+
 class { 'keystone::roles::admin':
   email    => 'test@puppetlabs.com',
   password => 'ChangeMe',
 }
+
 class { 'keystone::endpoint':
   public_url => "https://${::fqdn}:5000",
   admin_url  => "https://${::fqdn}:35357",
 }
 
-#keystone_config { 'ssl/enable': value => false }
-
-#include apache
-#class { 'keystone::wsgi::apache':
-#  ssl => true
-#}
-
+include apache
+class { 'keystone::wsgi::apache':
+  ssl => true
+}
