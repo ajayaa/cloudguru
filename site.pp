@@ -24,6 +24,10 @@ class { 'keystone':
   catalog_type   => 'sql',
   admin_token    => 'admin_token',
   mysql_module   => '2.2',
+
+# Default is PKI token for Icehouse. Here we're changing it to UUID
+  token_provider => 'keystone.token.providers.uuid.Provider',
+
 # NOTE(rushiagr): setting "enabled => false", and also not running the Apache
 # server will result in an error. This is
 # because, even if the service is disabled, the class keystone::roles::admin
