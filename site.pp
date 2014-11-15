@@ -34,11 +34,6 @@ class { 'keystone':
 # as WSGI servers, and this will lead to "Port/address in use" errors.
   enabled        => false,
   enable_ssl     => true,
-
-# TODO(rushiagr): These files for now need to be added manually. In future, we
-# should make creation of these files automatic
-  ssl_certfile   => "/home/vagrant/keystone-ssl/ssl-cert-snakeoil.pem",
-  ssl_keyfile    => "/home/vagrant/keystone-ssl/ssl-cert-snakeoil.key",
 }
 
 class { 'keystone::roles::admin':
