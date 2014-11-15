@@ -2,20 +2,31 @@ Yet another OpenStack cloud deployment repository
 
 ## Installation
 
-Make sure the machine has an FQDN set
+Make sure the machine has an FQDN set.
+
+Install git
 
     sudo apt-get install -y git
+
+Clone `cloudguru` repository
+
     git clone https://github.com/ajayaa/cloudguru.git
+
+Install gem `librarian-puppet-simple`
+
     sudo gem install librarian-puppet-simple --no-ri --no-rdoc
 
-Add a Puppetfile, and run
+Go to the directory where Puppetfile resides, and run `librarian-puppet
+install`:
 
+    cd cloudguru/
     librarian-puppet install
 
-to get installed all the Puppet modules defined in Puppetfile. To update the
+To get installed all the Puppet modules defined in Puppetfile. To update the
 modules later, run:
 
     librarian-puppet update
+
 ## Puppet apply
 
     sudo puppet apply site.pp --modulepath modules/
