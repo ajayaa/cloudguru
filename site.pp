@@ -24,7 +24,8 @@ class { 'keystone':
   catalog_type   => 'sql',
   admin_token    => 'admin_token',
   mysql_module   => '2.2',
-# NOTE(rushiagr): setting "enabled => false" will result in an error. This is
+# NOTE(rushiagr): setting "enabled => false", and also not running the Apache
+# server will result in an error. This is
 # because, even if the service is disabled, the class keystone::roles::admin
 # is defined, which will then try to access keystone. We should fix this up in
 # future.
