@@ -14,7 +14,7 @@ mod 'puppetlabs/concat',
   :ref => '1.1.1'
 
 mod 'puppetlabs/keystone',
-  :git => "#{base_url}/stackforge/puppet-keystone",
+  :git => "#{base_url}/rushiagr/puppet-keystone",
   :ref => 'stable/icehouse'
 
 mod 'puppetlabs/mysql',
