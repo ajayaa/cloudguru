@@ -1,3 +1,5 @@
+# Example file for apache only. Works with and without SSL endpoints.
+
 class { 'apache':
   default_vhost => false,
 # If you uncomment these following two lines, all the default things like
