@@ -1,22 +1,13 @@
-# Example using apache to serve keystone
+# Example using apache to serve keystone, with SSL
 #
 # To be sure everything is working, run:
-#   $ export OS_USERNAME=admin
-#   $ export OS_PASSWORD=ChangeMe
-#   $ export OS_TENANT_NAME=openstack
-#   $ export OS_AUTH_URL=http://keystone.local/keystone/main/v2.0
-#   $ keystone catalog
-#   Service: identity
-#   +-------------+----------------------------------------------+
-#   |   Property  |                    Value                     |
-#   +-------------+----------------------------------------------+
-#   |   adminURL  | http://keystone.local:80/keystone/admin/v2.0 |
-#   |      id     |       4f0f55f6789d4c73a53c51f991559b72       |
-#   | internalURL | http://keystone.local:80/keystone/main/v2.0  |
-#   |  publicURL  | http://keystone.local:80/keystone/main/v2.0  |
-#   |    region   |                  RegionOne                   |
-#   +-------------+----------------------------------------------+
-#
+# $ keystone  \
+#     --os-auth-url=https://<IP>:5000/v2.0 \
+#     --os-username admin \
+#     --os-password ChangeMe \
+#     --os-tenant-name openstack \
+#     --insecure \
+#     catalog
 
 Exec { logoutput => 'on_failure' }
 
