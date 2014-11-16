@@ -24,6 +24,7 @@ class { 'keystone':
   catalog_type   => 'sql',
   admin_token    => 'admin_token',
   mysql_module   => '2.2',
+  token_provider => 'keystone.token.providers.uuid.Provider',
 
 # NOTE(rushiagr): Do not set this to true if apache is enabled, as in this
 # site.pp. If set to true, then keystone will try to run on both apache as well
