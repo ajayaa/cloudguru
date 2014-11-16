@@ -41,6 +41,11 @@ class { 'keystone::roles::admin':
   password      => 'ChangeMe',
 }
 
+# Example of how to add a role
+#keystone_role { ['nonadmin']:
+#     ensure => present,
+#}
+
 class { 'keystone::endpoint':
   public_url => "https://${::fqdn}:5000",
   admin_url  => "https://${::fqdn}:35357",
@@ -50,6 +55,6 @@ class { 'keystone::endpoint':
 include apache
 class { 'keystone::wsgi::apache':
   ssl => true,
-  ssl_cert => '/home/vagrant/cloudguru/ssl/server1.crt',
-  ssl_key => '/home/vagrant/cloudguru/ssl/server1.key',
+  ssl_cert => '/home/vagrant/cloudguru/ssl/fake.crt',
+  ssl_key => '/home/vagrant/cloudguru/ssl/fake.key',
 }
