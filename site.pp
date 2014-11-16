@@ -53,5 +53,7 @@ class { 'keystone::endpoint':
 
 include apache
 class { 'keystone::wsgi::apache':
-  ssl => true
+  ssl => true,
+  ssl_cert => '/home/vagrant/cloudguru/ssl/server1.crt',
+  ssl_key => '/home/vagrant/cloudguru/ssl/server1.key',
 }
