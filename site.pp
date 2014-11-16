@@ -17,6 +17,12 @@ class { 'keystone::db::mysql':
   mysql_module   => '2.2',
   allowed_hosts => '%',
 }
+class { 'glance::db::mysql':
+  password      => 'glance',
+  allowed_hosts => '%',
+  mysql_module   => '2.2',
+}
+
 class { 'keystone':
   verbose        => true,
   debug          => true,
@@ -61,23 +67,27 @@ class { 'keystone::wsgi::apache':
 
 class { 'glance::api':
   verbose           => true,
-  auth_host         => '192.168.100.1',
-  auth_url          => 'http://192.168.100.1:5000/v2.0',
+  auth_host         => 'node1.example.com',
+  auth_url          => 'https://node1.example.com:5000/v2.0',
   auth_port         => '5000',
-  keystone_tenant   => 'service',
+  auth_protocol     => 'https',
+  keystone_tenant   => 'services',
   keystone_user     => 'glance',
-  keystone_password => '123',
-  sql_connection    => 'mysql://root:123@192.168.100.1/glance',
+  keystone_password => 'glance',
+  sql_connection    => 'mysql://glance:glance@127.0.0.1/glance',
+  mysql_module   => '2.2',
 }
 
 class { 'glance::registry':
   verbose           => true,
-  auth_host         => '192.168.100.1',
+  auth_host         => 'node1.example.com',
   auth_port         => '5000',
-  keystone_tenant   => 'service',
+  auth_protocol     => 'https',
+  keystone_tenant   => 'services',
   keystone_user     => 'glance',
-  keystone_password => '123',
-  sql_connection    => 'mysql://root:123@192.168.100.1/glance',
+  keystone_password => 'glance',
+  sql_connection    => 'mysql://glance:glance@127.0.0.1/glance',
+  mysql_module   => '2.2',
 }
 
 class { 'glance::backend::file': }
@@ -86,7 +96,16 @@ class { 'glance::notify::rabbitmq':
   rabbit_password               => '123',
   rabbit_userid                 => 'guest',
   rabbit_hosts                  => [
-    '192.168.100.1:5672'
+    '192.168.100.16:5672'
   ],
   rabbit_use_ssl                => false,
+}
+
+class { 'glance::keystone::auth':
+  password         => 'glance',
+  email            => 'glance@example.com',
+  public_address   => 'node1.example.com',
+  admin_address    => 'node1.example.com',
+  internal_address => 'node1.example.com',
+  region           => 'RegionOne',
 }
