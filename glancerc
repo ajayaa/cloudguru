@@ -1,0 +1,4 @@
+export OS_TENANT_NAME=services
+export OS_USERNAME=glance
+export OS_PASSWORD=glance
+export OS_AUTH_URL=https://node1.example.com:5000/v2.0
