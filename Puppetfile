@@ -24,3 +24,7 @@ mod 'puppetlabs/mysql',
 mod 'puppetlabs/stdlib',
   :git => "#{base_url}/puppetlabs/puppetlabs-stdlib",
   :ref => '4.3.2'
+
+mod 'puppetlabs/glance',
+  :git => "#{base_url}/stackforge/puppet-glance",
+  :ref => 'stable/icehouse'
