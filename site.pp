@@ -36,8 +36,9 @@ class { 'keystone':
 }
 
 class { 'keystone::roles::admin':
-  email    => 'test@puppetlabs.com',
-  password => 'ChangeMe',
+  admin_tenant  => 'admin',
+  email         => 'rushi.agr@gmail.com',
+  password      => 'ChangeMe',
 }
 
 class { 'keystone::endpoint':
