@@ -17,6 +17,12 @@ class { 'keystone::db::mysql':
   mysql_module   => '2.2',
   allowed_hosts => '%',
 }
+class { 'glance::db::mysql':
+  password      => 'glance',
+  allowed_hosts => '%',
+  mysql_module   => '2.2',
+}
+
 class { 'keystone':
   verbose        => true,
   debug          => true,
@@ -28,30 +34,80 @@ class { 'keystone':
 # Default is PKI token for Icehouse. Here we're changing it to UUID
   token_provider => 'keystone.token.providers.uuid.Provider',
 
-# NOTE(rushiagr): setting "enabled => false", and also not running the Apache
-# server will result in an error. This is
-# because, even if the service is disabled, the class keystone::roles::admin
-# is defined, which will then try to access keystone. We should fix this up in
-# future.
-
 # NOTE(rushiagr): Do not set this to true if apache is enabled, as in this
 # site.pp. If set to true, then keystone will try to run on both apache as well
 # as WSGI servers, and this will lead to "Port/address in use" errors.
   enabled        => false,
   enable_ssl     => true,
+  admin_endpoint => "https://${::fqdn}:35357/v2.0/",
+  public_endpoint => "https://${::fqdn}:5000/v2.0/",
 }
 
 class { 'keystone::roles::admin':
-  email    => 'test@puppetlabs.com',
-  password => 'ChangeMe',
+  admin_tenant  => 'admin',
+  email         => 'rushi.agr@gmail.com',
+  password      => 'ChangeMe',
 }
+
+# Example of how to add a role
+#keystone_role { ['nonadmin']:
+#     ensure => present,
+#}
 
 class { 'keystone::endpoint':
   public_url => "https://${::fqdn}:5000",
   admin_url  => "https://${::fqdn}:35357",
+  internal_url => "https://${::fqdn}:35357",
 }
 
 include apache
 class { 'keystone::wsgi::apache':
-  ssl => true
+  ssl => true,
+  ssl_cert => '/home/vagrant/cloudguru/ssl/fake.crt',
+  ssl_key => '/home/vagrant/cloudguru/ssl/fake.key',
+}
+
+class { 'glance::api':
+  verbose           => true,
+  auth_host         => 'node1.example.com',
+  auth_url          => 'https://node1.example.com:5000/v2.0',
+  auth_port         => '5000',
+  auth_protocol     => 'https',
+  keystone_tenant   => 'services',
+  keystone_user     => 'glance',
+  keystone_password => 'glance',
+  sql_connection    => 'mysql://glance:glance@127.0.0.1/glance',
+  mysql_module   => '2.2',
+}
+
+class { 'glance::registry':
+  verbose           => true,
+  auth_host         => 'node1.example.com',
+  auth_port         => '5000',
+  auth_protocol     => 'https',
+  keystone_tenant   => 'services',
+  keystone_user     => 'glance',
+  keystone_password => 'glance',
+  sql_connection    => 'mysql://glance:glance@127.0.0.1/glance',
+  mysql_module   => '2.2',
+}
+
+class { 'glance::backend::file': }
+
+class { 'glance::notify::rabbitmq':
+  rabbit_password               => '123',
+  rabbit_userid                 => 'guest',
+  rabbit_hosts                  => [
+    '192.168.100.16:5672'
+  ],
+  rabbit_use_ssl                => false,
+}
+
+class { 'glance::keystone::auth':
+  password         => 'glance',
+  email            => 'glance@example.com',
+  public_address   => 'node1.example.com',
+  admin_address    => 'node1.example.com',
+  internal_address => 'node1.example.com',
+  region           => 'RegionOne',
 }
