@@ -155,7 +155,7 @@ class { 'nova::compute':
 }
 
 class { 'nova::compute::libvirt':
-  migration_support => true,
+  #migration_support => true,
 }
 
 class { 'nova::conductor':
@@ -164,4 +164,4 @@ class { 'nova::conductor':
 
 include nova::client
 
-TODO: add nova network information..
+#TODO: add nova network information..

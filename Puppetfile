@@ -57,5 +57,9 @@ mod 'dprince/qpid',
   :git => "#{base_url}/dprince/puppet-qpid",
   :ref => 'master'
 
+mod 'stackforge/cinder',
+  :git => "#{base_url}/stackforge/puppet-cinder",
+  :ref => 'stable/icehouse'
+
 #dependency 'puppetlabs/cinder', '>=4.0.0 <5.0.0'
 #dependency 'puppetlabs/rabbitmq', '>=2.0.2 <4.0.0'
