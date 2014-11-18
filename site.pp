@@ -94,11 +94,27 @@ class { 'glance::registry':
 
 class { 'glance::backend::file': }
 
+class { 'rabbitmq':
+  default_user  => 'mydefaultuser',
+  default_pass  => 'mydefaultpass',
+}
+
+rabbitmq_user { 'rabbituser':
+  admin     => true,
+  password  => 'rabbitpass',
+}
+
+
+rabbitmq_user_permissions { 'rabbituser@/':
+  configure_permission => '.*',
+  read_permission      => '.*',
+  write_permission     => '.*',
+}
 class { 'glance::notify::rabbitmq':
-  rabbit_password               => '123',
-  rabbit_userid                 => 'guest',
+  rabbit_userid                 => 'rabbituser',
+  rabbit_password               => 'rabbitpass',
   rabbit_hosts                  => [
-    "192.168.100.10:5672"
+    "node1.example.com:5672"
   ],
   rabbit_use_ssl                => false,
 }

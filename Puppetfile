@@ -25,6 +25,26 @@ mod 'puppetlabs/stdlib',
   :git => "#{base_url}/puppetlabs/puppetlabs-stdlib",
   :ref => '4.3.2'
 
-mod 'puppetlabs/glance',
+mod 'stackforge/glance',
   :git => "#{base_url}/stackforge/puppet-glance",
   :ref => 'stable/icehouse'
+
+#mod 'stackforge/nova',
+#  :git => "#{base_url}/stackforge/puppet-nova",
+#  :ref => 'stable/icehouse'
+#
+#mod 'stackforge/openstacklib',
+#  :git => "#{base_url}/stackforge/puppet-openstacklib",
+#  :ref => 'stable/icehouse'
+
+mod 'puppetlabs/rabbitmq',
+  :git => "#{base_url}/puppetlabs/puppetlabs-rabbitmq",
+  :ref => '4.1.0'
+
+mod 'puppetlabs/apt',
+  :git => "#{base_url}/puppetlabs/puppetlabs-apt",
+  :ref => 'master'
+
+mod 'nanliu/staging',
+  :git => "#{base_url}/nanliu/puppet-staging",
+  :ref => 'master'
