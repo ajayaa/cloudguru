@@ -98,7 +98,7 @@ class { 'glance::notify::rabbitmq':
   rabbit_password               => '123',
   rabbit_userid                 => 'guest',
   rabbit_hosts                  => [
-    '192.168.100.16:5672'
+    "192.168.100.10:5672"
   ],
   rabbit_use_ssl                => false,
 }
