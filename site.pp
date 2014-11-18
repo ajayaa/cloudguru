@@ -99,17 +99,17 @@ class { 'rabbitmq':
   default_pass  => 'mydefaultpass',
 }
 
-rabbitmq_user { 'rabbituser':
-  admin     => true,
-  password  => 'rabbitpass',
-}
-
-
-rabbitmq_user_permissions { 'rabbituser@/':
-  configure_permission => '.*',
-  read_permission      => '.*',
-  write_permission     => '.*',
-}
+#rabbitmq_user { 'rabbituser':
+#  admin     => true,
+#  password  => 'rabbitpass',
+#}
+#
+#
+#rabbitmq_user_permissions { 'rabbituser@/':
+#  configure_permission => '.*',
+#  read_permission      => '.*',
+#  write_permission     => '.*',
+#}
 class { 'glance::notify::rabbitmq':
   rabbit_userid                 => 'rabbituser',
   rabbit_password               => 'rabbitpass',
@@ -154,12 +154,25 @@ class { 'nova::compute':
   vnc_enabled                   => true,
 }
 
+class { 'nova::keystone::auth':
+  password      => 'nova',
+}
+
 class { 'nova::compute::libvirt':
   #migration_support => true,
 }
 
 class { 'nova::conductor':
   enabled       => true,
+}
+
+class { 'nova::scheduler':
+  enabled       => true,
+}
+
+class { 'nova::db::mysql':
+  password      => 'nova',
+  mysql_module  => '2.2',
 }
 
 include nova::client
