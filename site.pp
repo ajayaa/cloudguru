@@ -11,17 +11,45 @@
 
 Exec { logoutput => 'on_failure' }
 
+
+## Database ##
+
 class { 'mysql::server': }
+
 class { 'keystone::db::mysql':
   password => 'keystone',
   mysql_module   => '2.2',
   allowed_hosts => '%',
 }
+
 class { 'glance::db::mysql':
   password      => 'glance',
-  allowed_hosts => '%',
   mysql_module   => '2.2',
+  allowed_hosts => '%',
 }
+
+class { 'nova::db::mysql':
+  password      => 'nova',
+  mysql_module  => '2.2',
+  allowed_hosts => '%',
+}
+
+
+## Service registration with Keystone ##
+
+class { 'glance::keystone::auth':
+  password         => 'glance',
+  email            => 'glance@example.com',
+  public_address   => 'node1.example.com',
+  admin_address    => 'node1.example.com',
+  internal_address => 'node1.example.com',
+  region           => 'RegionOne',
+}
+
+class { 'nova::keystone::auth':
+  password      => 'nova',
+}
+
 
 class { 'keystone':
   verbose        => true,
@@ -51,7 +79,7 @@ class { 'keystone::roles::admin':
 
 # Example of how to add a role
 #keystone_role { ['nonadmin']:
-#     ensure => present,
+#  ensure => present,
 #}
 
 class { 'keystone::endpoint':
@@ -99,6 +127,8 @@ class { 'rabbitmq':
   default_pass  => 'mydefaultpass',
 }
 
+# NOTE: need to run with this code for the first time. This code can and should
+# be cleaned up ASAP.
 #rabbitmq_user { 'rabbituser':
 #  admin     => true,
 #  password  => 'rabbitpass',
@@ -110,6 +140,7 @@ class { 'rabbitmq':
 #  read_permission      => '.*',
 #  write_permission     => '.*',
 #}
+
 class { 'glance::notify::rabbitmq':
   rabbit_userid                 => 'rabbituser',
   rabbit_password               => 'rabbitpass',
@@ -117,15 +148,6 @@ class { 'glance::notify::rabbitmq':
     "node1.example.com:5672"
   ],
   rabbit_use_ssl                => false,
-}
-
-class { 'glance::keystone::auth':
-  password         => 'glance',
-  email            => 'glance@example.com',
-  public_address   => 'node1.example.com',
-  admin_address    => 'node1.example.com',
-  internal_address => 'node1.example.com',
-  region           => 'RegionOne',
 }
 
 class { 'nova':
@@ -154,10 +176,6 @@ class { 'nova::compute':
   vnc_enabled                   => true,
 }
 
-class { 'nova::keystone::auth':
-  password      => 'nova',
-}
-
 class { 'nova::compute::libvirt':
   #migration_support => true,
 }
@@ -168,11 +186,6 @@ class { 'nova::conductor':
 
 class { 'nova::scheduler':
   enabled       => true,
-}
-
-class { 'nova::db::mysql':
-  password      => 'nova',
-  mysql_module  => '2.2',
 }
 
 include nova::client
