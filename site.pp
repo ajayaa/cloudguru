@@ -127,3 +127,41 @@ class { 'glance::keystone::auth':
   internal_address => 'node1.example.com',
   region           => 'RegionOne',
 }
+
+class { 'nova':
+  database_connection => 'mysql://nova:nova@127.0.0.1/nova?charset=utf8',
+  rabbit_userid       => 'rabbituser',
+  rabbit_password     => 'rabbitpass',
+  image_service       => 'nova.image.glance.GlanceImageService',
+  glance_api_servers  => 'node1.example.com:9292',
+  verbose             => true,
+  rabbit_hosts                  => [
+    "node1.example.com:5672"
+  ],
+  mysql_module   => '2.2',
+}
+
+class { 'nova::api':
+  admin_password    => 'nova',
+  enabled           => true,
+  auth_host         => 'node1.example.com',
+  auth_protocol     => 'https', 
+  admin_tenant_name => 'services',
+}
+
+class { 'nova::compute':
+  enabled                       => true,
+  vnc_enabled                   => true,
+}
+
+class { 'nova::compute::libvirt':
+  migration_support => true,
+}
+
+class { 'nova::conductor':
+  enabled       => true,
+}
+
+include nova::client
+
+TODO: add nova network information..

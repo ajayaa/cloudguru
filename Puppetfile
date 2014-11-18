@@ -29,10 +29,10 @@ mod 'stackforge/glance',
   :git => "#{base_url}/stackforge/puppet-glance",
   :ref => 'stable/icehouse'
 
-#mod 'stackforge/nova',
-#  :git => "#{base_url}/stackforge/puppet-nova",
-#  :ref => 'stable/icehouse'
-#
+mod 'stackforge/nova',
+  :git => "#{base_url}/stackforge/puppet-nova",
+  :ref => 'stable/icehouse'
+
 #mod 'stackforge/openstacklib',
 #  :git => "#{base_url}/stackforge/puppet-openstacklib",
 #  :ref => 'stable/icehouse'
@@ -48,3 +48,14 @@ mod 'puppetlabs/apt',
 mod 'nanliu/staging',
   :git => "#{base_url}/nanliu/puppet-staging",
   :ref => 'master'
+
+mod 'duritong/sysctl',
+  :git => "#{base_url}/duritong/puppet-sysctl",
+  :ref => 'master'
+
+mod 'dprince/qpid',
+  :git => "#{base_url}/dprince/puppet-qpid",
+  :ref => 'master'
+
+#dependency 'puppetlabs/cinder', '>=4.0.0 <5.0.0'
+#dependency 'puppetlabs/rabbitmq', '>=2.0.2 <4.0.0'
