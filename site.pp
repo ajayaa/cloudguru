@@ -190,4 +190,8 @@ class { 'nova::scheduler':
 
 include nova::client
 
+class { 'nova::network::flatdhcp':
+  fixed_range       => '11.1.1.1/24',
+}
+
 #TODO: add nova network information..
