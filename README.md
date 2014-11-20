@@ -35,3 +35,13 @@ modules later, run:
 Verify if the keystone got successfully installed:
 
     keystone --os-auth-url http://node2.example.com:5000/v2.0 --os-username admin --os-password ChangeMe --os-tenant-name openstack catalog
+
+## Glance
+
+Download image like this:
+
+    http://download.cirros-cloud.net/0.3.2/cirros-0.3.2-x86_64-uec.tar.gz
+
+Now upload it to glance directly
+
+    glance image-create --name cirros --public --container-format ami --disk-format ami < cirros-0.3.2-x86_64-uec.tar.gz
