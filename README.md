@@ -40,8 +40,27 @@ Verify if the keystone got successfully installed:
 
 Download image like this:
 
-    http://download.cirros-cloud.net/0.3.2/cirros-0.3.2-x86_64-uec.tar.gz
+    wget http://cdn.download.cirros-cloud.net/0.3.2/cirros-0.3.2-x86_64-disk.img
 
 Now upload it to glance directly
 
-    glance image-create --name cirros --public --container-format ami --disk-format ami < cirros-0.3.2-x86_64-uec.tar.gz
+    glance image-create --name cirros032 --disk-format qcow2 --container-format bare --is-public True --progress < cirros-0.3.2-x86_64-disk.img
+
+## Nova
+
+Add securitygroup rules
+
+    nova secgroup-add-rule default tcp 22 22 0.0.0.0/0
+    nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
+
+Add a keypair (actually not necessary for cirros image)
+
+    nova keypair-add rushi >> rushi.pem
+
+Boot nova instance
+
+    nova boot --image cirros032 --flavor m1.tiny --key-name rushi inst_one
+
+Now ping VM:
+
+    ping 10.0.0.2
