@@ -177,6 +177,7 @@ class { 'nova::compute':
 }
 
 class { 'nova::compute::libvirt':
+  libvirt_virt_type     => 'qemu',
   #migration_support => true,
 }
 
@@ -190,8 +191,12 @@ class { 'nova::scheduler':
 
 include nova::client
 
-class { 'nova::network::flatdhcp':
-  fixed_range       => '11.1.1.1/24',
+class { 'nova::network':
+#  fixed_range           => '11.1.1.1/24',
+  private_interface     => 'eth2',
+  enabled               => 'true',
 }
 
-#TODO: add nova network information..
+#class { 'nova::network::flatdhcp':
+#  fixed_range           => '11.1.1.1/24',
+#}
