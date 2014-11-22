@@ -129,17 +129,17 @@ class { 'glance::backend::file': }
 
 # NOTE: need to run with this code for the first time. This code can and should
 # be cleaned up ASAP.
-#rabbitmq_user { 'rabbituser':
-#  admin     => true,
-#  password  => 'rabbitpass',
-#}
-#
-#
-#rabbitmq_user_permissions { 'rabbituser@/':
-#  configure_permission => '.*',
-#  read_permission      => '.*',
-#  write_permission     => '.*',
-#}
+rabbitmq_user { 'rabbituser':
+  admin     => true,
+  password  => 'rabbitpass',
+}
+
+
+rabbitmq_user_permissions { 'rabbituser@/':
+  configure_permission => '.*',
+  read_permission      => '.*',
+  write_permission     => '.*',
+}
 
 class { 'glance::notify::rabbitmq':
   rabbit_userid                 => 'rabbituser',
