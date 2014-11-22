@@ -1,3 +1,7 @@
+#! /bin/bash
+set -eux
+
+
 HOST_MC_IP=192.168.100.1
 HOST_MC_USER=r
 HOST_MODULES_SOURCE=/home/r/src/cloudguru/modules
@@ -7,10 +11,15 @@ HOST_MODULES_SOURCE=/home/r/src/cloudguru/modules
 # assumes cloudguru directory is placed directly under home dir
 cd ~/cloudguru
 
-mkdir modules
-rsync -r $HOST_MC_USER@$HOST_MC_IP:$HOST_MODULES_SOURCE modules
 
-scp -r r@$HOST_MC_IP:/home/r/src/cloudguru/cirros032.img .
+HOSTNAME=$(hostname)
+echo "127.0.1.1 $HOSTNAME.example.com $HOSTNAME" | sudo tee --append /etc/hosts
+
+
+mkdir modules
+rsync -r $HOST_MC_USER@$HOST_MC_IP:$HOST_MODULES_SOURCE .
+
+scp -r r@$HOST_MC_IP:/home/r/src/cloudguru/cirros-0.3.2-x86_64-disk.img .
 
 sudo puppet apply site.pp --debug --modulepath modules/
 
