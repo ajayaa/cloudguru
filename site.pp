@@ -121,16 +121,19 @@ class { 'glance::registry':
 
 class { 'glance::backend::file': }
 
-#class { 'rabbitmq':
-#  default_user  => 'mydefaultuser',
-#  default_pass  => 'mydefaultpass',
-#}
+class { 'rabbitmq':
+  delete_guest_user => true,
+}
 
-# NOTE: need to run with this code for the first time. This code can and should
-# be cleaned up ASAP.
-rabbitmq_user { 'rabbituser':
-  admin     => true,
-  password  => 'rabbitpass',
+#NOTE Adding user and set permission only should be done once.
+#rabbitmq_user { 'rabbituser':
+#  admin     => true,
+#  password  => 'rabbitpass',
+#}
+#
+exec { "create_rabbituser":
+  command => "rabbitmqctl add_user rabbituser rabbitpass",
+  path    => '/usr/sbin:/usr/bin:/bin',
 }
 
 
