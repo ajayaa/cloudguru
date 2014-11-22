@@ -121,21 +121,20 @@ class { 'glance::registry':
 
 class { 'glance::backend::file': }
 
-class { 'rabbitmq':
-  delete_guest_user => true,
-}
-
 #NOTE Adding user and set permission only should be done once.
 #rabbitmq_user { 'rabbituser':
 #  admin     => true,
 #  password  => 'rabbitpass',
 #}
 #
+class { 'rabbitmq':
+  delete_guest_user => true,
+} ->
+
 exec { "create_rabbituser":
   command => "rabbitmqctl add_user rabbituser rabbitpass",
   path    => '/usr/sbin:/usr/bin:/bin',
-}
-
+} ->
 
 rabbitmq_user_permissions { 'rabbituser@/':
   configure_permission => '.*',
@@ -147,7 +146,7 @@ class { 'glance::notify::rabbitmq':
   rabbit_userid                 => 'rabbituser',
   rabbit_password               => 'rabbitpass',
   rabbit_hosts                  => [
-    "node1.example.com:5672"
+    "${::fqdn}:5672"
   ],
   rabbit_use_ssl                => false,
 }
