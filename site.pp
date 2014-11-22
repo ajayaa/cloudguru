@@ -40,9 +40,9 @@ class { 'nova::db::mysql':
 class { 'glance::keystone::auth':
   password         => 'glance',
   email            => 'glance@example.com',
-  public_address   => 'node1.example.com',
-  admin_address    => 'node1.example.com',
-  internal_address => 'node1.example.com',
+  public_address   => "${::fqdn}"
+  admin_address    => "${::fqdn}"
+  internal_address => "${::fqdn}"
   region           => 'RegionOne',
 }
 
@@ -97,8 +97,7 @@ class { 'keystone::wsgi::apache':
 
 class { 'glance::api':
   verbose           => true,
-  auth_host         => 'node1.example.com',
-  auth_url          => 'https://node1.example.com:5000/v2.0',
+  auth_host         => "${::fqdn}"
   auth_port         => '5000',
   auth_protocol     => 'https',
   keystone_tenant   => 'services',
@@ -110,7 +109,7 @@ class { 'glance::api':
 
 class { 'glance::registry':
   verbose           => true,
-  auth_host         => 'node1.example.com',
+  auth_host         => "${::fqdn}"
   auth_port         => '5000',
   auth_protocol     => 'https',
   keystone_tenant   => 'services',
@@ -155,10 +154,10 @@ class { 'nova':
   rabbit_userid       => 'rabbituser',
   rabbit_password     => 'rabbitpass',
   image_service       => 'nova.image.glance.GlanceImageService',
-  glance_api_servers  => 'node1.example.com:9292',
+  glance_api_servers  => "${::fqdn}:9292",
   verbose             => true,
   rabbit_hosts                  => [
-    "node1.example.com:5672"
+    "${::fqdn}:5672"
   ],
   mysql_module   => '2.2',
 }
@@ -166,7 +165,7 @@ class { 'nova':
 class { 'nova::api':
   admin_password    => 'nova',
   enabled           => true,
-  auth_host         => 'node1.example.com',
+  auth_host         => "${::fqdn}"
   auth_protocol     => 'https', 
   admin_tenant_name => 'services',
 }
