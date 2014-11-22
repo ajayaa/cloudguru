@@ -122,10 +122,10 @@ class { 'glance::registry':
 
 class { 'glance::backend::file': }
 
-class { 'rabbitmq':
-  default_user  => 'mydefaultuser',
-  default_pass  => 'mydefaultpass',
-}
+#class { 'rabbitmq':
+#  default_user  => 'mydefaultuser',
+#  default_pass  => 'mydefaultpass',
+#}
 
 # NOTE: need to run with this code for the first time. This code can and should
 # be cleaned up ASAP.
