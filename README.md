@@ -59,7 +59,7 @@ Add a keypair (actually not necessary for cirros image)
 
 Boot nova instance
 
-    nova boot --image cirros032 --flavor m1.tiny --key-name rushi inst_one
+    nova boot --image cirros032 --flavor m1.tiny inst_one
 
 Now ping VM:
 
