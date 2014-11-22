@@ -40,9 +40,9 @@ class { 'nova::db::mysql':
 class { 'glance::keystone::auth':
   password         => 'glance',
   email            => 'glance@example.com',
-  public_address   => "${::fqdn}"
-  admin_address    => "${::fqdn}"
-  internal_address => "${::fqdn}"
+  public_address   => "${::fqdn}",
+  admin_address    => "${::fqdn}",
+  internal_address => "${::fqdn}",
   region           => 'RegionOne',
 }
 
@@ -97,7 +97,7 @@ class { 'keystone::wsgi::apache':
 
 class { 'glance::api':
   verbose           => true,
-  auth_host         => "${::fqdn}"
+  auth_host         => "${::fqdn}",
   auth_port         => '5000',
   auth_protocol     => 'https',
   keystone_tenant   => 'services',
@@ -109,7 +109,7 @@ class { 'glance::api':
 
 class { 'glance::registry':
   verbose           => true,
-  auth_host         => "${::fqdn}"
+  auth_host         => "${::fqdn}",
   auth_port         => '5000',
   auth_protocol     => 'https',
   keystone_tenant   => 'services',
@@ -165,7 +165,7 @@ class { 'nova':
 class { 'nova::api':
   admin_password    => 'nova',
   enabled           => true,
-  auth_host         => "${::fqdn}"
+  auth_host         => "${::fqdn}",
   auth_protocol     => 'https', 
   admin_tenant_name => 'services',
 }
