@@ -39,7 +39,7 @@ mod 'stackforge/nova',
 
 mod 'puppetlabs/rabbitmq',
   :git => "#{base_url}/puppetlabs/puppetlabs-rabbitmq",
-  :ref => '2.1.0'
+  :ref => '4.1.0'
 
 mod 'puppetlabs/apt',
   :git => "#{base_url}/puppetlabs/puppetlabs-apt",
