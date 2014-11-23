@@ -194,7 +194,7 @@ include nova::client
 
 class { 'nova::network':
 #  fixed_range           => '11.1.1.1/24',
-  private_interface     => 'eth1',
+  private_interface     => 'eth2',
   enabled               => 'true',
 }
 
