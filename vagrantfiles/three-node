@@ -1,0 +1,40 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+BOX = "mybox1"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    config.vm.define :controller do |controller_config|
+        controller_config.vm.box = BOX
+        controller_config.vm.host_name = "node1"
+        controller_config.vm.network :private_network, ip:"192.168.100.10"
+        controller_config.vm.network :private_network, ip:"192.168.110.10"
+        config.vm.provider :virtualbox do |vb|
+            vb.customize ["modifyvm", :id, "--memory", "1200"]
+            vb.customize ["modifyvm", :id, "--cpus", "1"]
+        end
+    end
+
+    config.vm.define :compute1 do |compute1_config|
+        compute1_config.vm.box = BOX
+        compute1_config.vm.host_name = "node2"
+        compute1_config.vm.network :private_network, ip:"192.168.100.20"
+        compute1_config.vm.network :private_network, ip:"192.168.110.20"
+        config.vm.provider :virtualbox do |vb|
+            vb.customize ["modifyvm", :id, "--memory", "1300"]
+            vb.customize ["modifyvm", :id, "--cpus", "2"]
+        end
+    end
+
+    config.vm.define :compute2 do |compute2_config|
+        compute2_config.vm.box = BOX
+        compute2_config.vm.host_name = "node3"
+        compute2_config.vm.network :private_network, ip:"192.168.100.30"
+        compute2_config.vm.network :private_network, ip:"192.168.110.30"
+        config.vm.provider :virtualbox do |vb|
+            vb.customize ["modifyvm", :id, "--memory", "1300"]
+            vb.customize ["modifyvm", :id, "--cpus", "2"]
+        end
+    end
+end
