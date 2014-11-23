@@ -54,7 +54,7 @@ class { 'nova::keystone::auth':
 class { 'keystone':
   verbose        => true,
   debug          => true,
-  database_connection => 'mysql://keystone:keystone@127.0.0.1/keystone',
+  database_connection => 'mysql://keystone:keystone@192.168.100.10/keystone',
   catalog_type   => 'sql',
   admin_token    => 'admin_token',
   mysql_module   => '2.2',
@@ -103,7 +103,7 @@ class { 'glance::api':
   keystone_tenant   => 'services',
   keystone_user     => 'glance',
   keystone_password => 'glance',
-  sql_connection    => 'mysql://glance:glance@127.0.0.1/glance',
+  sql_connection    => 'mysql://glance:glance@192.168.100.10/glance',
   mysql_module   => '2.2',
 }
 
@@ -115,7 +115,7 @@ class { 'glance::registry':
   keystone_tenant   => 'services',
   keystone_user     => 'glance',
   keystone_password => 'glance',
-  sql_connection    => 'mysql://glance:glance@127.0.0.1/glance',
+  sql_connection    => 'mysql://glance:glance@192.168.100.10/glance',
   mysql_module   => '2.2',
 }
 
@@ -152,7 +152,7 @@ class { 'glance::notify::rabbitmq':
 }
 
 class { 'nova':
-  database_connection => 'mysql://nova:nova@127.0.0.1/nova?charset=utf8',
+  database_connection => 'mysql://nova:nova@192.168.100.10/nova?charset=utf8',
   rabbit_userid       => 'rabbituser',
   rabbit_password     => 'rabbitpass',
   image_service       => 'nova.image.glance.GlanceImageService',
