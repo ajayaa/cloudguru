@@ -172,15 +172,15 @@ class { 'nova::api':
   admin_tenant_name => 'services',
 }
 
-class { 'nova::compute':
-  enabled                       => true,
-  vnc_enabled                   => true,
-}
-
-class { 'nova::compute::libvirt':
-  libvirt_virt_type     => 'qemu',
-  #migration_support => true,
-}
+#class { 'nova::compute':
+#  enabled                       => true,
+#  vnc_enabled                   => true,
+#}
+#
+#class { 'nova::compute::libvirt':
+#  libvirt_virt_type     => 'qemu',
+#  #migration_support => true,
+#}
 
 class { 'nova::conductor':
   enabled       => true,
