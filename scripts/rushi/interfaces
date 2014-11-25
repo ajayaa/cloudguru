@@ -1,0 +1,13 @@
+auto lo
+iface lo inet loopback
+
+source /etc/network/interfaces.d/*.cfg
+
+auto eth1
+iface eth1 inet static
+      address 192.168.100.10
+      netmask 255.255.255.0
+
+iface eth2 inet manual
+      up ifconfig $IFACE 0.0.0.0 up
+      up ifconfig $IFACE promisc
