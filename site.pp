@@ -14,7 +14,10 @@ Exec { logoutput => 'on_failure' }
 
 ## Database ##
 
-class { 'mysql::server': }
+class { 'mysql::server':
+  override_options => { 'mysqld' => { 'bind-address' => '192.168.100.10' } },
+  restart   => true,
+}
 
 class { 'keystone::db::mysql':
   password => 'keystone',
