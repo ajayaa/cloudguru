@@ -5,7 +5,7 @@
 Exec { logoutput => 'on_failure' }
 
 class { 'nova':
-  database_connection => 'mysql://nova:nova@node1.example.com/nova?charset=utf8',
+  database_connection => 'mysql://nova:nova@192.168.100.10/nova?charset=utf8',
   rabbit_userid       => 'rabbituser',
   rabbit_password     => 'rabbitpass',
   image_service       => 'nova.image.glance.GlanceImageService',
