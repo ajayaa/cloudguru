@@ -30,11 +30,11 @@ class { 'nova::compute::libvirt':
 
 include nova::client
 
-class { 'nova::network':
+#class { 'nova::network':
 #  fixed_range           => '11.1.1.1/24',
-  private_interface     => 'eth2',
-  enabled               => 'true',
-}
+#  private_interface     => 'eth2',
+#  enabled               => 'true',
+#}
 
 class { 'mysql::client': }
 #class { 'nova::network::flatdhcp':
