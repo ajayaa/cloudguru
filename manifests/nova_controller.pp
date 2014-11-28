@@ -30,7 +30,6 @@ class cloudguru::nova_controller {
   
   include nova::client
 
-  class { 'mysql::server': }
   class { 'nova::db::mysql':
     password      => 'nova',
     mysql_module  => '2.2',

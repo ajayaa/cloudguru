@@ -1,5 +1,4 @@
 class cloudguru::image {
-  class { 'mysql::server': }
 
   class { 'glance::api':
     verbose           => true,

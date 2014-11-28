@@ -1,5 +1,4 @@
 class cloudguru::nova_compute {
-  class { 'nova': }
   class { 'nova::compute':
     enabled                       => true,
     vnc_enabled                   => true,
