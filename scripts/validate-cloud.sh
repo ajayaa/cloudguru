@@ -17,3 +17,5 @@ glance image-list
 nova flavor-list
 nova list
 nova image-list
+nova host-list
+nova network-list
