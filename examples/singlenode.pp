@@ -82,7 +82,9 @@ class { 'keystone::endpoint':
   internal_url => "https://${::fqdn}:35357",
 }
 
-include apache
+class {'apache':
+  default_vhost     => false,
+}
 class { 'keystone::wsgi::apache':
   ssl => true,
   ssl_cert => '/home/vagrant/cloudguru/ssl/fake.crt',
@@ -195,3 +197,10 @@ class { 'nova::network':
 #class { 'nova::network::flatdhcp':
 #  fixed_range           => '11.1.1.1/24',
 #}
+
+class { 'horizon':
+  secret_key       => 's3cr3t',
+  keystone_url => 'https://192.168.100.10:5000/v2.0',
+  allowed_hosts     => '*',
+}
+
