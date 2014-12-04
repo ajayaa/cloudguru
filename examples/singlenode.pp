@@ -200,7 +200,7 @@ class { 'nova::network':
 
 class { 'horizon':
   secret_key       => 's3cr3t',
-  keystone_url => 'https://192.168.100.10:5000/v2.0',
+  keystone_url => 'https://node1.example.com:5000/v2.0',
   allowed_hosts     => '*',
 }
 
