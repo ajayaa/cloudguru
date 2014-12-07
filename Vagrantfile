@@ -5,7 +5,7 @@ BOX = "trusty64"
 USE_LOCAL_MIRROR=true
 # NOTE: currently, local mirror is supposed to be running at
 # http://10.0.2.2/ubuntu
-# LOCAL_MIRROR_IP="http://10.0.2.2/ubuntu"
+LOCAL_MIRROR_IP="http://192.168.1.139/ubuntu"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Common configs
@@ -24,12 +24,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder("files/", '/etc/puppet/files/')
 
   if USE_LOCAL_MIRROR
-    config.vm.provision :shell, :inline =>
-        "cp /etc/puppet/files/sources.list.vagrant.eth0 /etc/apt/sources.list"
+      #TODO(rushiagr): if no local mirror IP is specified, use 10.0.2.2
+     config.vm.provision :shell, :inline =>
+         "cp /etc/puppet/files/sources.list.template /etc/apt/sources.list"
+     config.vm.provision :shell,
+         :inline => "sed -i s/mc_ip/#{LOCAL_MIRROR_IP}/g /etc/apt/sources.list"
   end
 
-#  config.vm.provision :shell,
-#      :inline => "sed -i s/mc_ip/#{LOCAL_MIRROR_IP}/g /etc/apt/sources.list"
   config.vm.provision :shell,
       :inline => "apt-get update --fix-missing -o Acquire::http::No-Cache=True"
 # NOTE: somehow, vagrant's not taking these vars from here, when we're running
