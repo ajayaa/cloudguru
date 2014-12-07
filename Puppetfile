@@ -64,3 +64,7 @@ mod 'stackforge/cinder',
 mod 'stackforge/horizon',
   :git => "#{base_url}/stackforge/puppet-horizon",
   :ref => 'stable/icehouse'
+
+mod 'stackforge/neutron',
+  :git => "#{base_url}/stackforge/puppet-neutron",
+  :ref => 'stable/icehouse'

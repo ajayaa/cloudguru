@@ -163,7 +163,8 @@ class { 'nova::api':
   enabled           => true,
   auth_host         => "${::fqdn}",
   auth_protocol     => 'https', 
-  admin_tenant_name => 'services',
+  a
+  min_tenant_name => 'services',
 }
 
 #class { 'nova::compute':
@@ -186,12 +187,75 @@ class { 'nova::scheduler':
 
 include nova::client
 
-class { 'nova::network':
-#  fixed_range           => '11.1.1.1/24',
-  private_interface     => 'eth2',
-  enabled               => 'true',
-}
+#TODO: remove this
+#class { 'nova::network':
+##  fixed_range           => '11.1.1.1/24',
+#  private_interface     => 'eth2',
+#  enabled               => 'true',
+#}
 
 #class { 'nova::network::flatdhcp':
 #  fixed_range           => '11.1.1.1/24',
+#}
+
+class { 'nova::network::neutron':
+  neutron_admin_password    => 'neutron',
+  neutron_url               => 'http://192.168.100.10:9696',
+  neutron_admin_auth_url    => 'https://192.168.100.10:35357/v2.0',
+}
+
+class { 'neutron':
+  allow_overlapping_ips     => true, # Enables network namespaces
+  verbose           => true,
+  debug             => true,
+  #TODO(rushiagr): see service_plugins option. More specifically, see if
+  #'router' service plugin is required.
+  rabbit_user       => 'rabbituser',
+  rabbit_password   => 'rabbitpass',
+  rabbit_host       => '192.168.100.10',
+  log_file          => 'test_neutron_logfilename',
+}
+
+class { 'neutron::server':
+  auth_password     => 'neutron',
+  auth_host         => "${::fqdn}",
+  auth_protocol     => 'https',
+  database_connection => 'mysql://neutron:neutron@192.168.100.10/neutron',
+  #TODO(rushiagr): check if this sync db thing is required, or can be removed
+  sync_db           => false,
+  mysql_module      => '2.2',
+}
+
+class { 'neutron::plugins::ovs':
+  #NOTE(rushiagr): this needs to be changed to vlan if we want vlan and not
+  #gre, or vice versa
+  tenant_network_type => 'vlan',
+}
+
+#NOTE(rushiagr): not sure if this is required for minimal neutron to work
+#successfully, but adding anyways, because it is listed in
+#puppet-neutron/examples/neutron.pp
+class { 'neutron::server::notifications':
+  nova_url      => 'http://192.168.100.10:8774/v2',
+  nova_admin_auth_url => 'https://node1.example.com:35357/v2.0',
+  nova_admin_password => 'nova',
+}
+
+#TODO(rushiagr): see if neutron::agents::ovs is actually required on the
+#controller node, even if we're not using controller node as a compute machine
+#
+#TODO(rushiagr): not sure if tunneling and local IP is required for vlan too
+#(i.e. not vxlan)
+class { 'neutron::agents::ovs':
+  local_ip => '192.168.110.10',
+  enable_tunneling => true,
+}
+
+# ml2 plugin with vxlan as ml2 driver and ovs as mechanism driver
+#class { 'neutron::plugins::ml2':
+#  type_drivers          => ['vxlan'],
+#  tenant_network_types  => ['vxlan'],
+#  vxlan_group           => '239.1.1.1',
+#  mechanism_drivers     => ['openvswitch'],
+#  vni_ranges            => ['0:300']
 #}
