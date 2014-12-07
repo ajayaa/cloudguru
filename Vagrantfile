@@ -39,11 +39,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #  end
 
   config.vm.define :controller  do |cfg|
-      cfg.vm.host_name = "node1"
-  end
-  config.vm.define :compute do |cfg|
-      cfg.vm.provider :virtualbox do |vb|
-          vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
+      cfg.vm.hostname = "node1.example.com"
+      cfg.vm.provision "puppet" do |puppet|
+        puppet.options = "--debug --verbose"
+        puppet.facter = {
+            "fqdn" => "node1.example.com",
+            "hack=hack LANG=en_US.UTF-8 hack" => "hack", #ugly hack
+        }
+        puppet.manifest_file = "controller.pp"
       end
   end
 #  config.vm.define :compute do |cfg|
