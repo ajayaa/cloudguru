@@ -6,7 +6,7 @@ Exec { logoutput => 'on_failure' }
 ## Database ##
 
 class { 'mysql::server':
-  override_options => { 'mysqld' => { 'bind-address' => "{::ipaddress_eth1}" } },
+  override_options => { 'mysqld' => { 'bind-address' => "${::ipaddress_eth1}" } },
   restart   => true,
 }
 
@@ -48,7 +48,7 @@ class { 'nova::keystone::auth':
 class { 'keystone':
   verbose        => true,
   debug          => true,
-  database_connection => "mysql://keystone:keystone@{::ipaddress_eth1}/keystone",
+  database_connection => "mysql://keystone:keystone@${::ipaddress_eth1}/keystone",
   catalog_type   => 'sql',
   admin_token    => 'admin_token',
   mysql_module   => '2.2',
@@ -97,7 +97,7 @@ class { 'glance::api':
   keystone_tenant   => 'services',
   keystone_user     => 'glance',
   keystone_password => 'glance',
-  sql_connection    => "mysql://glance:glance@{::ipaddress_eth1}/glance",
+  sql_connection    => "mysql://glance:glance@${::ipaddress_eth1}/glance",
   mysql_module   => '2.2',
 }
 
@@ -109,7 +109,7 @@ class { 'glance::registry':
   keystone_tenant   => 'services',
   keystone_user     => 'glance',
   keystone_password => 'glance',
-  sql_connection    => "mysql://glance:glance@{::ipaddress_eth1}/glance",
+  sql_connection    => "mysql://glance:glance@${::ipaddress_eth1}/glance",
   mysql_module   => '2.2',
 }
 
@@ -146,7 +146,7 @@ class { 'glance::notify::rabbitmq':
 }
 
 class { 'nova':
-  database_connection => "mysql://nova:nova@{::ipaddress_eth1}/nova?charset=utf8",
+  database_connection => "mysql://nova:nova@${::ipaddress_eth1}/nova?charset=utf8",
   rabbit_userid       => 'rabbituser',
   rabbit_password     => 'rabbitpass',
   image_service       => 'nova.image.glance.GlanceImageService',
@@ -199,8 +199,8 @@ include nova::client
 
 class { 'nova::network::neutron':
   neutron_admin_password    => 'neutron',
-  neutron_url               => "http://{::ipaddress_eth1}:9696",
-  neutron_admin_auth_url    => "https://{::ipaddress_eth1}:35357/v2.0",
+  neutron_url               => "http://${::ipaddress_eth1}:9696",
+  neutron_admin_auth_url    => "https://${::ipaddress_eth1}:35357/v2.0",
 }
 
 class { 'neutron':
@@ -211,7 +211,7 @@ class { 'neutron':
   #'router' service plugin is required.
   rabbit_user       => 'rabbituser',
   rabbit_password   => 'rabbitpass',
-  rabbit_host       => "{::ipaddress_eth1}",
+  rabbit_host       => "${::ipaddress_eth1}",
   log_file          => 'test_neutron_logfilename',
 }
 
@@ -219,7 +219,7 @@ class { 'neutron::server':
   auth_password     => 'neutron',
   auth_host         => "${::fqdn}",
   auth_protocol     => 'https',
-  database_connection => "mysql://neutron:neutron@{::ipaddress_eth1}/neutron",
+  database_connection => "mysql://neutron:neutron@${::ipaddress_eth1}/neutron",
   #TODO(rushiagr): check if this sync db thing is required, or can be removed
   sync_db           => false,
   mysql_module      => '2.2',
@@ -236,7 +236,7 @@ class { 'neutron::plugins::ovs':
 #successfully, but adding anyways, because it is listed in
 #puppet-neutron/examples/neutron.pp
 class { 'neutron::server::notifications':
-  nova_url      => "http://{::ipaddress_eth1}:8774/v2",
+  nova_url      => "http://${::ipaddress_eth1}:8774/v2",
   nova_admin_auth_url => 'https://node1.example.com:35357/v2.0',
   nova_admin_password => 'nova',
 }
@@ -247,7 +247,7 @@ class { 'neutron::server::notifications':
 #TODO(rushiagr): not sure if tunneling and local IP is required for vlan too
 #(i.e. not vxlan)
 class { 'neutron::agents::ovs':
-  local_ip => "{::ipaddress_eth1}",
+  local_ip => "${::ipaddress_eth1}",
   enable_tunneling => true,
 }
 
