@@ -32,6 +32,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #      :inline => "sed -i s/mc_ip/#{LOCAL_MIRROR_IP}/g /etc/apt/sources.list"
   config.vm.provision :shell,
       :inline => "apt-get update --fix-missing -o Acquire::http::No-Cache=True"
+# NOTE: somehow, vagrant's not taking these vars from here, when we're running
+# puppet again
 #  config.vm.provision "puppet" do |puppet|
 #      puppet.options = "--debug --verbose"
 #  end
@@ -43,6 +45,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       cfg.vm.provider :virtualbox do |vb|
           vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
       end
-      cfg.vm.host_name = "node2"
   end
 end
