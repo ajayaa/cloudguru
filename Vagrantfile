@@ -5,7 +5,7 @@ BOX = "trusty64"
 USE_LOCAL_MIRROR=true
 # NOTE: currently, local mirror is supposed to be running at
 # http://10.0.2.2/ubuntu
-LOCAL_MIRROR_IP="http://192.168.1.139/ubuntu"
+LOCAL_MIRROR_IP="192.168.1.139"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Common configs
