@@ -229,6 +229,7 @@ class { 'neutron::plugins::ovs':
   #NOTE(rushiagr): this needs to be changed to vlan if we want vlan and not
   #gre, or vice versa
   tenant_network_type => 'vlan',
+  network_vlan_ranges => 'physnet:100:200',
 }
 
 #NOTE(rushiagr): not sure if this is required for minimal neutron to work
