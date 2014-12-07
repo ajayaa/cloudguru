@@ -85,8 +85,8 @@ class { 'keystone::endpoint':
 include apache
 class { 'keystone::wsgi::apache':
   ssl => true,
-  ssl_cert => '/home/vagrant/cloudguru/ssl/fake.crt',
-  ssl_key => '/home/vagrant/cloudguru/ssl/fake.key',
+  ssl_cert => '/home/vagrant/cloudguru/files/ssl/fake.crt',
+  ssl_key => '/home/vagrant/cloudguru/files/ssl/fake.key',
 }
 
 class { 'glance::api':
