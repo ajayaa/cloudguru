@@ -1,13 +1,4 @@
-# Example using apache to serve keystone, with SSL
-#
-# To be sure everything is working, run:
-# $ keystone  \
-#     --os-auth-url=https://<IP>:5000/v2.0 \
-#     --os-username admin \
-#     --os-password ChangeMe \
-#     --os-tenant-name openstack \
-#     --insecure \
-#     catalog
+# To see if everything works fine, run validate-cloud.sh
 
 Exec { logoutput => 'on_failure' }
 
