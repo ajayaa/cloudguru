@@ -163,8 +163,7 @@ class { 'nova::api':
   enabled           => true,
   auth_host         => "${::fqdn}",
   auth_protocol     => 'https', 
-  a
-  min_tenant_name => 'services',
+  admin_tenant_name => 'services',
 }
 
 #class { 'nova::compute':
