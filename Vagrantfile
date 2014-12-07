@@ -46,4 +46,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
       end
   end
+#  config.vm.define :compute do |cfg|
+#      cfg.vm.provider :virtualbox do |vb|
+#          vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
+#      end
+#      cfg.vm.host_name = "node2"
+#  end
 end
