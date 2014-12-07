@@ -24,8 +24,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder("files/", '/etc/puppet/files/')
 
   if USE_LOCAL_MIRROR
-    config.vm.provision :shell,
-        :inline => "cp /etc/puppet/files/sources.list.vagrant.eth0 /etc/apt/sources.list"
+    config.vm.provision :shell, :inline =>
+        "cp /etc/puppet/files/sources.list.vagrant.eth0 /etc/apt/sources.list"
   end
 
 #  config.vm.provision :shell,
