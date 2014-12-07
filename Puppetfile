@@ -68,3 +68,7 @@ mod 'stackforge/horizon',
 mod 'stackforge/neutron',
   :git => "#{base_url}/stackforge/puppet-neutron",
   :ref => 'stable/icehouse'
+
+mod 'puppetlabs/vswitch',
+  :git => "#{base_url}/puppetlabs/puppetlabs-vswitch",
+  :ref => 'master'
