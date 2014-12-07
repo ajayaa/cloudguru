@@ -1,6 +1,6 @@
 VAGRANTFILE_API_VERSION = "2"
-VM_ETH1_NETWORK = "192.168.10.0"
-VM_ETH2_NETWORK = "192.168.11.0"
+VM_ETH1_NETWORK = "192.168.100.0"
+VM_ETH2_NETWORK = "192.168.110.0"
 BOX = "trusty64"
 USE_LOCAL_MIRROR=true
 # NOTE: currently, local mirror is supposed to be running at
