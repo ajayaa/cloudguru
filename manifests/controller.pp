@@ -280,3 +280,16 @@ class { 'neutron::keystone::auth':
   internal_address  => "${::fqdn}",
   region            => 'RegionOne',
 }
+
+
+
+# Compute
+class { 'nova::compute':
+  enabled       => true,
+  vnc_enabled   => true,
+  neutron_enabled   => true,
+}
+
+class { 'nova::compute::libvirt':
+  libvirt_virt_type     => 'qemu',
+}
