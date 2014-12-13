@@ -2,3 +2,4 @@ modules/*
 *.img
 *.deb
 .vagrant/*
+*.tar.gz
