@@ -255,7 +255,7 @@ class { 'neutron::plugins::ovs':
 #TODO(rushiagr): not sure if tunneling and local IP is required for vlan too
 #(i.e. not vxlan)
 class { 'neutron::agents::ovs':
-  local_ip => "${::ipaddress_eth2}",
+  local_ip => "${::ipaddress_eth1}",
   enable_tunneling => true,
 }
 
