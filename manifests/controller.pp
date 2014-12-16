@@ -54,7 +54,7 @@ class { 'nova::keystone::auth':
 class { 'keystone':
   verbose        => true,
   debug          => true,
-  database_connection => "mysql://keystone:keystone@${::ipaddress_eth1}/keystone",
+  database_connection => "mysql://cloud:cloud@${::ipaddress_eth1}/keystone",
   catalog_type   => 'sql',
   admin_token    => 'admin_token',
   mysql_module   => '2.2',
@@ -103,7 +103,7 @@ class { 'glance::api':
   keystone_tenant   => 'services',
   keystone_user     => 'glance',
   keystone_password => 'glance',
-  sql_connection    => "mysql://glance:glance@${::ipaddress_eth1}/glance",
+  sql_connection    => "mysql://cloud:cloud@${::ipaddress_eth1}/glance",
   mysql_module   => '2.2',
 }
 
@@ -115,7 +115,7 @@ class { 'glance::registry':
   keystone_tenant   => 'services',
   keystone_user     => 'glance',
   keystone_password => 'glance',
-  sql_connection    => "mysql://glance:glance@${::ipaddress_eth1}/glance",
+  sql_connection    => "mysql://cloud:cloud@${::ipaddress_eth1}/glance",
   mysql_module   => '2.2',
 }
 
@@ -152,7 +152,7 @@ class { 'glance::notify::rabbitmq':
 }
 
 class { 'nova':
-  database_connection => "mysql://nova:nova@${::ipaddress_eth1}/nova?charset=utf8",
+  database_connection => "mysql://cloud:cloud@${::ipaddress_eth1}/nova?charset=utf8",
   rabbit_userid       => 'rabbituser',
   rabbit_password     => 'rabbitpass',
   image_service       => 'nova.image.glance.GlanceImageService',
@@ -227,7 +227,7 @@ class { 'neutron::server':
   auth_host         => "${::fqdn}",
   auth_port         => '5000',
   auth_protocol     => 'https',
-  database_connection => "mysql://neutron:neutron@${::ipaddress_eth1}/neutron",
+  database_connection => "mysql://cloud:cloud@${::ipaddress_eth1}/neutron",
   #TODO(rushiagr): check if this sync db thing is required, or can be removed
   sync_db           => True,
   mysql_module      => '2.2',
