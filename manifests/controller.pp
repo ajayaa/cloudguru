@@ -243,11 +243,13 @@ class { 'neutron::plugins::ovs':
 #NOTE(rushiagr): not sure if this is required for minimal neutron to work
 #successfully, but adding anyways, because it is listed in
 #puppet-neutron/examples/neutron.pp
-#class { 'neutron::server::notifications':
-#  nova_url      => "http://${::ipaddress_eth1}:8774/v2",
-#  nova_admin_auth_url => 'https://node1.example.com:5000/v2.0',
-#  nova_admin_password => 'nova',
-#}
+class { 'neutron::server::notifications':
+  nova_admin_tenant_name => 'services',
+#  nova_admin_username => 'nova',
+  nova_url      => "http://${::fqdn}:8774/v2",
+  nova_admin_auth_url => "https://${::fqdn}:5000/v2.0",
+  nova_admin_password => 'nova',
+}
 
 #TODO(rushiagr): see if neutron::agents::ovs is actually required on the
 #controller node, even if we're not using controller node as a compute machine
@@ -257,6 +259,18 @@ class { 'neutron::plugins::ovs':
 class { 'neutron::agents::ovs':
   local_ip => "${::ipaddress_eth1}",
   enable_tunneling => true,
+}
+
+class { 'neutron::agents::dhcp':
+  debug => true,
+}
+
+class { 'neutron::agents::l3':
+  debug => true,
+  use_namespaces => true,
+  #NOTE(rushiagr): default value of the below option is  true. we might need to
+  #understand how to configure it and understand it a bit more in the future
+  #handle_internal_only_routers => false,
 }
 
 # ml2 plugin with vxlan as ml2 driver and ovs as mechanism driver
