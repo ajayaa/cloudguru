@@ -23,4 +23,11 @@ Vagrant.configure("2") do |config|
   config.vm.define :controller  do |cfg|
       cfg.vm.hostname = "node1.example.com"
   end
+  config.vm.define :compute  do |cfg|
+      cfg.vm.hostname = "node2.example.com"
+      cfg.vm.provider "virtualbox" do |vbox|
+          vbox.memory = 1500
+          vbox.cpus = 1
+      end
+  end
 end
