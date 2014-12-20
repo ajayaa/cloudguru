@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder("scripts/", '/home/vagrant/cloudguru/scripts')
   config.vm.synced_folder("manifests/", '/home/vagrant/cloudguru/manifests')
   if ENV['USER'] == 'r'
-    config.vm.synced_folder("/home/r/myutils/", '/home/vagrant/myutils')
+    config.vm.synced_folder("/home/r/src/myutils/", '/home/vagrant/myutils')
   end
 
   config.vm.define :controller  do |cfg|
