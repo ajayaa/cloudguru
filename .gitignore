@@ -3,3 +3,4 @@ modules/*
 *.deb
 .vagrant/*
 *.tar.gz
+*.sw[a-z]
