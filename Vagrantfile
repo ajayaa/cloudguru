@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", :type => "dhcp",
       :ip => VM_ETH2_NETWORK, :netmask => "255.255.255.0"
 
-  config.vm.synced_folder("modules/", '/home/vagrant/cloudguru/modules')
+  config.vm.synced_folder("modules/", '/etc/puppet/modules')
   config.vm.synced_folder("files/", '/home/vagrant/cloudguru/files')
   config.vm.synced_folder("scripts/", '/home/vagrant/cloudguru/scripts')
   config.vm.synced_folder("manifests/", '/home/vagrant/cloudguru/manifests')
