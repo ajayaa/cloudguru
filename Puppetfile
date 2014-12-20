@@ -15,7 +15,7 @@ mod 'puppetlabs/concat',
 
 mod 'puppetlabs/keystone',
   :git => "#{base_url}/rushiagr/puppet-keystone",
-  :ref => 'stable/juno'
+  :ref => 'master'
 
 mod 'puppetlabs/mysql',
   :git => "#{base_url}/puppetlabs/puppetlabs-mysql",
