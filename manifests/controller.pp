@@ -207,6 +207,8 @@ class { 'nova::network::neutron':
   neutron_admin_password    => 'neutron',
   neutron_url               => "http://${::ipaddress_eth1}:9696",
   neutron_admin_auth_url    => "https://${::fqdn}:5000/v2.0",
+  vif_plugging_is_fatal     => True,
+  vif_plugging_timeout      => 10,
 }
 
 class { 'neutron':
