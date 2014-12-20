@@ -19,3 +19,7 @@ nova list
 nova image-list
 nova host-list
 nova network-list
+
+neutron net-list
+neutron router-list
+neutron subnet-list
