@@ -58,6 +58,8 @@ class { 'keystone':
   catalog_type   => 'sql',
   admin_token    => 'admin_token',
   mysql_module   => '2.2',
+  rabbit_userid  => 'rabbituser',
+  rabbit_password => 'rabbitpass',
 
 # Default is PKI token for Icehouse. Here we're changing it to UUID
   token_provider => 'keystone.token.providers.uuid.Provider',
