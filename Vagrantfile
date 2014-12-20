@@ -19,6 +19,9 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder("files/", '/home/vagrant/cloudguru/files')
   config.vm.synced_folder("scripts/", '/home/vagrant/cloudguru/scripts')
   config.vm.synced_folder("manifests/", '/home/vagrant/cloudguru/manifests')
+  if ENV['USER'] == 'r'
+    config.vm.synced_folder("/home/r/myutils/", '/home/vagrant/myutils')
+  end
 
   config.vm.define :controller  do |cfg|
       cfg.vm.hostname = "node1.example.com"
