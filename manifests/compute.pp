@@ -20,7 +20,7 @@ class { 'nova':
 class { 'nova::compute':
   enabled                       => true,
   vnc_enabled                   => true,
-  neutron_enabled               => false,
+  neutron_enabled               => true,
 }
 
 class { 'nova::compute::libvirt':
