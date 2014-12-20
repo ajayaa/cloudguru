@@ -40,3 +40,25 @@ class { 'mysql::client': }
 #class { 'nova::network::flatdhcp':
 #  fixed_range           => '11.1.1.1/24',
 #}
+class { 'neutron':
+  allow_overlapping_ips     => true, # Enables network namespaces
+  verbose           => true,
+  debug             => true,
+  #TODO(rushiagr): see service_plugins option. More specifically, see if
+  #'router' service plugin is required.
+  #service_plugin    => 'router',
+  rabbit_user       => 'rabbituser',
+  rabbit_password   => 'rabbitpass',
+  rabbit_host       => 'node1.example.com',
+  log_file          => 'test_neutron_logfilename',
+}
+
+class { 'neutron::agents::ovs':
+ local_ip => "${::ipaddress_eth1}",
+ enable_tunneling => true,
+}
+
+class { 'neutron::plugins::ovs':
+  tenant_network_type => 'vxlan',
+#  network_vlan_ranges => 'physnet:100:200',
+}
