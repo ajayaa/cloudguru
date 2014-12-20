@@ -15,7 +15,7 @@ mod 'puppetlabs/concat',
 
 mod 'puppetlabs/keystone',
   :git => "#{base_url}/rushiagr/puppet-keystone",
-  :ref => 'stable/icehouse'
+  :ref => 'stable/juno'
 
 mod 'puppetlabs/mysql',
   :git => "#{base_url}/puppetlabs/puppetlabs-mysql",
@@ -27,15 +27,15 @@ mod 'puppetlabs/stdlib',
 
 mod 'stackforge/glance',
   :git => "#{base_url}/stackforge/puppet-glance",
-  :ref => 'stable/icehouse'
+  :ref => 'stable/juno'
 
 mod 'stackforge/nova',
   :git => "#{base_url}/stackforge/puppet-nova",
-  :ref => 'stable/icehouse'
+  :ref => 'stable/juno'
 
 #mod 'stackforge/openstacklib',
 #  :git => "#{base_url}/stackforge/puppet-openstacklib",
-#  :ref => 'stable/icehouse'
+#  :ref => 'stable/juno'
 
 mod 'puppetlabs/rabbitmq',
   :git => "#{base_url}/puppetlabs/puppetlabs-rabbitmq",
@@ -59,15 +59,15 @@ mod 'dprince/qpid',
 
 mod 'stackforge/cinder',
   :git => "#{base_url}/stackforge/puppet-cinder",
-  :ref => 'stable/icehouse'
+  :ref => 'stable/juno'
 
 mod 'stackforge/horizon',
   :git => "#{base_url}/stackforge/puppet-horizon",
-  :ref => 'stable/icehouse'
+  :ref => 'stable/juno'
 
 mod 'stackforge/neutron',
   :git => "#{base_url}/stackforge/puppet-neutron",
-  :ref => 'stable/icehouse'
+  :ref => 'stable/juno'
 
 mod 'puppetlabs/vswitch',
   :git => "#{base_url}/puppetlabs/puppetlabs-vswitch",
