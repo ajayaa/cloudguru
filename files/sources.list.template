@@ -3,3 +3,5 @@ deb http://mc_ip/ubuntu trusty-security main restricted universe multiverse
 deb http://mc_ip/ubuntu trusty-updates main restricted universe multiverse
 deb http://mc_ip/ubuntu trusty-proposed main restricted universe multiverse
 deb http://mc_ip/ubuntu trusty-backports main restricted universe multiverse
+deb-amd64 http://mc_ip/debianrabbit testing main
+deb http://mc_ip/ubuntujuno trusty-updates/juno main
