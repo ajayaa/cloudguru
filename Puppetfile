@@ -14,8 +14,8 @@ mod 'puppetlabs/concat',
   :ref => '1.1.1'
 
 mod 'puppetlabs/keystone',
-  :git => "#{base_url}/rushiagr/puppet-keystone",
-  :ref => 'master'
+  :git => "#{base_url}/stackforge/puppet-keystone",
+  :ref => 'stable/juno'
 
 mod 'puppetlabs/mysql',
   :git => "#{base_url}/puppetlabs/puppetlabs-mysql",
@@ -33,9 +33,9 @@ mod 'stackforge/nova',
   :git => "#{base_url}/stackforge/puppet-nova",
   :ref => 'stable/juno'
 
-#mod 'stackforge/openstacklib',
-#  :git => "#{base_url}/stackforge/puppet-openstacklib",
-#  :ref => 'stable/juno'
+mod 'stackforge/openstacklib',
+  :git => "#{base_url}/stackforge/puppet-openstacklib",
+  :ref => 'stable/juno'
 
 mod 'puppetlabs/rabbitmq',
   :git => "#{base_url}/puppetlabs/puppetlabs-rabbitmq",

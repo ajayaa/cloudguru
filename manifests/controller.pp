@@ -12,25 +12,22 @@ class { 'mysql::server':
 
 class { 'keystone::db::mysql':
   password => 'keystone',
-  mysql_module   => '2.2',
   allowed_hosts => '%',
+#  mysql_module => '2.2',
 }
 
 class { 'glance::db::mysql':
   password      => 'glance',
-  mysql_module   => '2.2',
   allowed_hosts => '%',
 }
 
 class { 'nova::db::mysql':
   password      => 'nova',
-  mysql_module  => '2.2',
   allowed_hosts => '%',
 }
 
 class { 'neutron::db::mysql':
   password      => 'neutron',
-  mysql_module  => '2.2',
   allowed_hosts => '%',
 }
 
@@ -57,7 +54,6 @@ class { 'keystone':
   database_connection => "mysql://keystone:keystone@${::ipaddress_eth1}/keystone",
   catalog_type   => 'sql',
   admin_token    => 'admin_token',
-  mysql_module   => '2.2',
   rabbit_userid  => 'rabbituser',
   rabbit_password => 'rabbitpass',
 
@@ -69,7 +65,7 @@ class { 'keystone':
 # as WSGI servers, and this will lead to "Port/address in use" errors.
   enabled        => false,
   enable_ssl     => true,
-  admin_endpoint => "https://${::fqdn}:35357/v2.0/",
+  admin_endpoint => "https://${::fqdn}:35357/",
   public_endpoint => "https://${::fqdn}:5000/v2.0/",
 }
 
@@ -106,7 +102,6 @@ class { 'glance::api':
   keystone_user     => 'glance',
   keystone_password => 'glance',
   sql_connection    => "mysql://glance:glance@${::ipaddress_eth1}/glance",
-  mysql_module   => '2.2',
 }
 
 class { 'glance::registry':
@@ -118,7 +113,6 @@ class { 'glance::registry':
   keystone_user     => 'glance',
   keystone_password => 'glance',
   sql_connection    => "mysql://glance:glance@${::ipaddress_eth1}/glance",
-  mysql_module   => '2.2',
 }
 
 class { 'glance::backend::file': }
@@ -163,7 +157,6 @@ class { 'nova':
   rabbit_hosts                  => [
     "${::fqdn}:5672"
   ],
-  mysql_module   => '2.2',
 }
 
 class { 'nova::api':
@@ -234,7 +227,6 @@ class { 'neutron::server':
   database_connection => "mysql://neutron:neutron@${::ipaddress_eth1}/neutron",
   #TODO(rushiagr): check if this sync db thing is required, or can be removed
   sync_db           => True,
-  mysql_module      => '2.2',
 }
 
 class { 'neutron::plugins::ovs':

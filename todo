@@ -1,1 +1,3 @@
 add shell script to configure compute node, pre-puppet-run
+keystone db not populated automatically right now when we switched to using
+juno

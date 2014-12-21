@@ -64,3 +64,7 @@ Boot nova instance
 Now ping VM:
 
     ping 10.0.0.2
+
+
+### For juno
+    sudo add-apt-repository cloud-archive:juno
