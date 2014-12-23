@@ -197,6 +197,16 @@ include nova::client
 #class { 'nova::network::flatdhcp':
 #  fixed_range           => '11.1.1.1/24',
 #}
+class { 'neutron::keystone::auth':
+  password          => 'neutron',
+  auth_name         => 'neutron',
+  email             => 'neutron@example.com',
+  tenant            => 'services',
+  public_address    => "${::fqdn}",
+  admin_address     => "${::fqdn}",
+  internal_address  => "${::fqdn}",
+  region            => 'RegionOne',
+}
 
 class { 'nova::network::neutron':
   neutron_admin_password    => 'neutron',
@@ -206,6 +216,16 @@ class { 'nova::network::neutron':
   vif_plugging_timeout      => 10,
 }
 
+#NOTE(rushiagr): not sure if this is required for minimal neutron to work
+#successfully, but adding anyways, because it is listed in
+#puppet-neutron/examples/neutron.pp
+class { 'neutron::server::notifications':
+  nova_admin_tenant_name => 'services',
+  nova_admin_username => 'nova',
+  nova_url      => "http://${::fqdn}:8774/v2",
+  nova_admin_auth_url => "https://${::fqdn}:5000/v2.0",
+  nova_admin_password => 'nova',
+}
 class { 'neutron':
   allow_overlapping_ips     => true, # Enables network namespaces
   verbose           => true,
@@ -236,16 +256,6 @@ class { 'neutron::plugins::ovs':
   #network_vlan_ranges => 'physnet:100:200',
 }
 
-#NOTE(rushiagr): not sure if this is required for minimal neutron to work
-#successfully, but adding anyways, because it is listed in
-#puppet-neutron/examples/neutron.pp
-class { 'neutron::server::notifications':
-  nova_admin_tenant_name => 'services',
-  nova_admin_username => 'nova',
-  nova_url      => "http://${::fqdn}:8774/v2",
-  nova_admin_auth_url => "https://${::fqdn}:5000/v2.0",
-  nova_admin_password => 'nova',
-}
 
 #TODO(rushiagr): see if neutron::agents::ovs is actually required on the
 #controller node, even if we're not using controller node as a compute machine
@@ -256,6 +266,13 @@ class { 'neutron::agents::ovs':
   local_ip => "${::ipaddress_eth1}",
   enable_tunneling => true,
 }
+
+
+
+
+#class { 'neutron::plugins::ovs':
+#  tenant_network_type => 'vxlan',
+#}
 
 class { 'neutron::agents::dhcp':
   debug => true,
@@ -280,16 +297,8 @@ class { 'neutron::agents::l3':
 
 include neutron::client
 
-class { 'neutron::keystone::auth':
-  password          => 'neutron',
-  auth_name         => 'neutron',
-  email             => 'neutron@example.com',
-  tenant            => 'services',
-  public_address    => "${::fqdn}",
-  admin_address     => "${::fqdn}",
-  internal_address  => "${::fqdn}",
-  region            => 'RegionOne',
-}
+
+
 
 
 
