@@ -262,29 +262,29 @@ class { 'neutron::plugins::ovs':
 #
 #TODO(rushiagr): not sure if tunneling and local IP is required for vlan too
 #(i.e. not vxlan)
-class { 'neutron::agents::ovs':
-  local_ip => "${::ipaddress_eth1}",
-  enable_tunneling => true,
-}
-
-
-
-
-#class { 'neutron::plugins::ovs':
-#  tenant_network_type => 'vxlan',
+#class { 'neutron::agents::ovs':
+#  local_ip => "${::ipaddress_eth1}",
+#  enable_tunneling => true,
 #}
-
-class { 'neutron::agents::dhcp':
-  debug => true,
-}
-
-class { 'neutron::agents::l3':
-  debug => true,
-  use_namespaces => true,
-  #NOTE(rushiagr): default value of the below option is  true. we might need to
-  #understand how to configure it and understand it a bit more in the future
-  #handle_internal_only_routers => false,
-}
+#
+#
+#
+#
+##class { 'neutron::plugins::ovs':
+##  tenant_network_type => 'vxlan',
+##}
+#
+#class { 'neutron::agents::dhcp':
+#  debug => true,
+#}
+#
+#class { 'neutron::agents::l3':
+#  debug => true,
+#  use_namespaces => true,
+#  #NOTE(rushiagr): default value of the below option is  true. we might need to
+#  #understand how to configure it and understand it a bit more in the future
+#  #handle_internal_only_routers => false,
+#}
 
 # ml2 plugin with vxlan as ml2 driver and ovs as mechanism driver
 #class { 'neutron::plugins::ml2':
