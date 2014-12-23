@@ -70,5 +70,5 @@ mod 'stackforge/neutron',
   :ref => 'stable/juno'
 
 mod 'puppetlabs/vswitch',
-  :git => "#{base_url}/puppetlabs/puppetlabs-vswitch",
+  :git => "#{base_url}/stackforge/puppet-vswitch",
   :ref => 'master'
