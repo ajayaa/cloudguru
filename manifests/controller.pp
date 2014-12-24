@@ -26,7 +26,10 @@ class { 'nova::db::mysql':
   allowed_hosts => '%',
 }
 
-
+class { 'neutron::db::mysql':
+  password      => 'neutron',
+  allowed_hosts => '%',
+}
 
 ## Service registration with Keystone ##
 
@@ -204,4 +207,23 @@ class { 'nova::compute':
 
 class { 'nova::compute::libvirt':
   libvirt_virt_type     => 'qemu',
+}
+
+class { 'neutron::keystone::auth':
+  password          => 'neutron',
+  auth_name         => 'neutron',
+  email             => 'neutron@example.com',
+  tenant            => 'services',
+  public_address    => "${::fqdn}",
+  admin_address     => "${::fqdn}",
+  internal_address  => "${::fqdn}",
+  region            => 'RegionOne',
+}
+
+class { 'nova::network::neutron':
+  neutron_admin_password    => 'neutron',
+  neutron_url               => "http://${::ipaddress_eth1}:9696",
+  neutron_admin_auth_url    => "https://${::fqdn}:5000/v2.0",
+  vif_plugging_is_fatal     => false,
+  vif_plugging_timeout      => 10,
 }
