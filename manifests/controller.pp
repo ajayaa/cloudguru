@@ -65,7 +65,7 @@ class { 'keystone':
   enabled        => false,
   enable_ssl     => true,
   admin_endpoint => "https://${::fqdn}:35357/",
-  public_endpoint => "https://${::fqdn}:5000/v2.0/",
+  public_endpoint => "https://${::fqdn}:5000/",
 }
 
 class { 'keystone::roles::admin':
