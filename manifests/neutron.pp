@@ -12,6 +12,8 @@ class { 'neutron':
   rabbit_password   => 'rabbitpass',
   rabbit_host       => "${::ipaddress_eth1}",
   log_file          => 'test_neutron_logfilename',
+  #core_plugin       => 'ml2',
+  core_plugin       => 'neutron.plugins.ml2.plugin.Ml2Plugin',
 }
 
 class { 'neutron::server':
