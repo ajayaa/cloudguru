@@ -1,5 +1,10 @@
 # blah
 
+class { 'neutron::db::mysql':
+  password      => 'neutron',
+  allowed_hosts => '%',
+}
+
 class { 'neutron::keystone::auth':
   password          => 'neutron',
   auth_name         => 'neutron',
@@ -51,4 +56,50 @@ class { 'neutron::server':
   #TODO(rushiagr): check if this sync db thing is required, or can be removed
   sync_db           => True,
 }
+class { 'neutron::plugins::ovs':
+  #NOTE(rushiagr): this needs to be changed to vlan if we want vlan and not
+  #gre, or vice versa
+  tenant_network_type => 'vxlan',
+  #network_vlan_ranges => 'physnet:100:200',
+}
 
+
+#TODO(rushiagr): see if neutron::agents::ovs is actually required on the
+#controller node, even if we're not using controller node as a compute machine
+#
+#TODO(rushiagr): not sure if tunneling and local IP is required for vlan too
+#(i.e. not vxlan)
+#class { 'neutron::agents::ovs':
+#  local_ip => "${::ipaddress_eth1}",
+#  enable_tunneling => true,
+#}
+#
+#
+#
+#
+##class { 'neutron::plugins::ovs':
+##  tenant_network_type => 'vxlan',
+##}
+#
+#class { 'neutron::agents::dhcp':
+#  debug => true,
+#}
+#
+#class { 'neutron::agents::l3':
+#  debug => true,
+#  use_namespaces => true,
+#  #NOTE(rushiagr): default value of the below option is  true. we might need to
+#  #understand how to configure it and understand it a bit more in the future
+#  #handle_internal_only_routers => false,
+#}
+
+# ml2 plugin with vxlan as ml2 driver and ovs as mechanism driver
+#class { 'neutron::plugins::ml2':
+#  type_drivers          => ['vxlan'],
+#  tenant_network_types  => ['vxlan'],
+#  vxlan_group           => '239.1.1.1',
+#  mechanism_drivers     => ['openvswitch'],
+#  vni_ranges            => ['0:300']
+#}
+
+include neutron::client
