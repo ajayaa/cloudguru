@@ -78,12 +78,12 @@ class { 'neutron::server':
 #}
 
 # ml2 plugin with vxlan as ml2 driver and ovs as mechanism driver
-#class { 'neutron::plugins::ml2':
-#  type_drivers          => ['vxlan'],
-#  tenant_network_types  => ['vxlan'],
-#  vxlan_group           => '239.1.1.1',
-#  mechanism_drivers     => ['openvswitch'],
-#  vni_ranges            => ['0:300']
-#}
+class { 'neutron::plugins::ml2':
+  type_drivers          => ['vxlan'],
+  tenant_network_types  => ['vxlan'],
+  vxlan_group           => '239.1.1.1',
+  mechanism_drivers     => ['openvswitch'],
+  vni_ranges            => ['0:300']
+}
 
 include neutron::client
