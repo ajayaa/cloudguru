@@ -68,6 +68,8 @@ class { 'keystone':
   public_endpoint => "https://${::fqdn}:5000/",
 }
 
+class { 'keystone::db::sync': }
+
 class { 'keystone::roles::admin':
   admin_tenant  => 'admin',
   email         => 'rushi.agr@gmail.com',
