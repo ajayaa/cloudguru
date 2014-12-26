@@ -153,7 +153,7 @@ class { 'nova':
   rabbit_userid       => 'rabbituser',
   rabbit_password     => 'rabbitpass',
   image_service       => 'nova.image.glance.GlanceImageService',
-  glance_api_servers  => "${::fqdn}:9292",
+  glance_api_servers  => "http://${::fqdn}:9292",
   verbose             => true,
   rabbit_hosts                  => [
     "${::fqdn}:5672"
