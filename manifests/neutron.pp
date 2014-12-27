@@ -26,8 +26,9 @@ class { 'neutron::server':
 }
 
 class { 'neutron::agents::ml2::ovs':
-  local_ip => "${::ipaddress_eth1}",
+  local_ip         => "${::ipaddress_eth1}",
   enable_tunneling => true,
+  tunnel_types     => 'vxlan',
 }
 
 class { 'neutron::agents::dhcp':
