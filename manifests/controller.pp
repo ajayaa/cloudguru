@@ -211,6 +211,8 @@ class { 'nova::compute::libvirt':
   libvirt_virt_type     => 'qemu',
 }
 
+class { 'nova::compute::neutron': }
+
 class { 'neutron::keystone::auth':
   password          => 'neutron',
   auth_name         => 'neutron',

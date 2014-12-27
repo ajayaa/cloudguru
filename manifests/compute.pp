@@ -28,6 +28,8 @@ class { 'nova::compute::libvirt':
   #migration_support => true,
 }
 
+class { 'nova::compute::neutron': }
+
 include nova::client
 
 #class { 'nova::network':
