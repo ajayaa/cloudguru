@@ -44,21 +44,20 @@ class { 'neutron':
   allow_overlapping_ips     => true, # Enables network namespaces
   verbose           => true,
   debug             => true,
-  #TODO(rushiagr): see service_plugins option. More specifically, see if
-  #'router' service plugin is required.
-  #service_plugin    => 'router',
   rabbit_user       => 'rabbituser',
   rabbit_password   => 'rabbitpass',
   rabbit_host       => 'node1.example.com',
-  log_file          => 'test_neutron_logfilename',
 }
 
-class { 'neutron::agents::ovs':
- local_ip => "${::ipaddress_eth1}",
- enable_tunneling => true,
+class { 'neutron::agents::ml2::ovs':
+  local_ip         => "${::ipaddress_eth1}",
+  enable_tunneling => true,
+  tunnel_types     => ['vxlan'],
 }
 
-class { 'neutron::plugins::ovs':
-  tenant_network_type => 'vxlan',
-#  network_vlan_ranges => 'physnet:100:200',
+class { 'neutron::plugins::ml2':
+  type_drivers          => ['vxlan'],
+  tenant_network_types  => ['vxlan'],
+  vni_ranges            => ['1001:2000']
 }
+
