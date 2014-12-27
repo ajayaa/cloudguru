@@ -68,3 +68,10 @@ Now ping VM:
 
 ### For juno
     sudo add-apt-repository cloud-archive:juno
+
+### Neutron
+
+To reload ML2 configuration:
+
+    service neutron-plugin-openvswitch-agent start
+
