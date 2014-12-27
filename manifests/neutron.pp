@@ -5,15 +5,11 @@ class { 'neutron':
   allow_overlapping_ips     => true, # Enables network namespaces
   verbose           => true,
   debug             => true,
-  #TODO(rushiagr): see service_plugins option. More specifically, see if
-  #'router' service plugin is required.
-  #service_plugin    => 'router',
-  rabbit_user       => 'rabbituser',
-  rabbit_password   => 'rabbitpass',
-  rabbit_host       => "${::ipaddress_eth1}",
-  log_file          => 'test_neutron_logfilename',
-  #core_plugin       => 'ml2',
-  core_plugin       => 'neutron.plugins.ml2.plugin.Ml2Plugin',
+  rabbit_user     => 'rabbituser',
+  rabbit_password => 'rabbitpass',
+  rabbit_host     => "${::ipaddress_eth1}",
+  core_plugin     => 'neutron.plugins.ml2.plugin.Ml2Plugin',
+  service_plugins => [ 'router' ]
 }
 
 class { 'neutron::server':
