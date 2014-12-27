@@ -1,3 +1,6 @@
+#! /bin/bash -eux
+
+
 sudo sed -i s/identity_uri/#identity_uri/g /etc/glance/glance-api.conf
 sudo sed -i s/identity_uri/#identity_uri/g /etc/glance/glance-registry.conf
 
