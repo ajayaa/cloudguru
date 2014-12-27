@@ -76,7 +76,9 @@ To reload ML2 configuration:
     service neutron-plugin-openvswitch-agent start
 
 To add br-ex bridge:
+
     sudo ovs-vsctl add-br br-ex
 
 To attach eth2 to br-ex:
+
     sudo ovs-vsctl add-port br-ex eth2
