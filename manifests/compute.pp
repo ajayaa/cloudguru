@@ -51,6 +51,14 @@ class { 'neutron':
   rabbit_host       => 'node1.example.com',
 }
 
+class { 'neutron::server::notifications':
+  nova_admin_tenant_name => 'services',
+  nova_admin_username => 'nova',
+  nova_url      => "http://node1.example.com:8774/v2",
+  nova_admin_auth_url => "https://node1.example.com:5000/v2.0",
+  nova_admin_password => 'nova',
+}
+
 class { 'neutron::agents::ml2::ovs':
   local_ip         => "${::ipaddress_eth1}",
   enable_tunneling => true,

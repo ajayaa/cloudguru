@@ -21,6 +21,14 @@ class { 'neutron::server':
   sync_db           => True,
 }
 
+class { 'neutron::server::notifications':
+  nova_admin_tenant_name => 'services',
+  nova_admin_username => 'nova',
+  nova_url      => "http://${::fqdn}:8774/v2",
+  nova_admin_auth_url => "https://${::fqdn}:5000/v2.0",
+  nova_admin_password => 'nova',
+}
+
 class { 'neutron::agents::ml2::ovs':
   local_ip         => "${::ipaddress_eth1}",
   enable_tunneling => true,
